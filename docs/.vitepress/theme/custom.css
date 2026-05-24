@@ -1,0 +1,29 @@
+:root {
+  --vp-c-brand-1: #2196f3;
+  --vp-c-brand-2: #1976d2;
+  --vp-c-brand-3: #1565c0;
+  --vp-c-brand-soft: #e8f4fe;
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(90deg, #2196f3, #f7ca17);
+}
+
+.vp-doc h1 {
+  position: relative;
+  display: inline-block;
+}
+
+.vp-doc h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 72px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2196f3, #f7ca17);
+}
+
+.vp-doc blockquote {
+  border-left: 4px solid #f7ca17;
+  background: linear-gradient(90deg, #fff8d6, #f8fafc);
+}

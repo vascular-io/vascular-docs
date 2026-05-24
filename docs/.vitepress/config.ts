@@ -1,0 +1,51 @@
+import { defineConfig } from "vitepress";
+
+export default defineConfig({
+  title: "Vascular Docs",
+  description: "Developer documentation for the Vascular Platform",
+  base: "/vascular-docs/",
+  themeConfig: {
+    logo: "/logo.svg",
+    nav: [
+      { text: "Guide", link: "/guide/prerequisites" },
+      { text: "Client SDKs", link: "/guide/client-integration" },
+      { text: "Analytics", link: "/guide/analytics-s3" },
+    ],
+    sidebar: [
+      {
+        text: "Getting started",
+        items: [
+          { text: "Introduction", link: "/" },
+          { text: "Prerequisites", link: "/guide/prerequisites" },
+          { text: "Pull the image", link: "/guide/pull-image" },
+          { text: "License activation", link: "/guide/license" },
+          { text: "Envoy proxy (web SDKs)", link: "/guide/envoy-proxy" },
+          { text: "Deploying Vascular Inbox", link: "/guide/deploying" },
+        ],
+      },
+      {
+        text: "Configuration",
+        items: [
+          { text: "Environment variables", link: "/guide/environment-variables" },
+        ],
+      },
+      {
+        text: "Integration",
+        items: [
+          { text: "Client SDKs", link: "/guide/client-integration" },
+          { text: "Streaming events to S3", link: "/guide/analytics-s3" },
+        ],
+      },
+    ],
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/vascular-io/vascular-docs",
+      },
+    ],
+    footer: {
+      message: "Vascular Platform developer documentation",
+      copyright: "Copyright © Vascular",
+    },
+  },
+});
