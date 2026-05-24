@@ -26,4 +26,4 @@ features:
 
 Thank you for choosing Vascular. This site walks you through server setup, deployment, environment configuration, client integration, and analytics streaming.
 
-Download your `.license` file from the [Customer Dashboard](https://dashboard.vascular.io) after registration and payment.
+Download your `.license` file from the [Customer Dashboard](https://dashboard.vascular.io) after registration.

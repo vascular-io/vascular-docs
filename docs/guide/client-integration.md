@@ -1,29 +1,34 @@
-# Client integration
+# Client SDKs
 
-You can integrate Vascular with your client applications using one of our open-source plugins.
+Integrate Vascular into your applications using our open-source client SDKs. Each SDK uses the same credential model — see [Authentication](./sdk/authentication.md) for how API keys, app keys, and user IDs are sent on every request.
 
-Native SDKs (Android, iOS, Flutter, and others) connect to Vascular Inbox on port `3000` by default. For **React** and **React Native** web SDKs, run Envoy alongside the server and point the web client at Envoy on port `8081` (see [Envoy proxy for web SDKs](./envoy-proxy.md)).
+## Connection overview
 
-## Download client plugins
+| SDK | Package / repo | Connects to | Port (default) |
+| --- | --- | --- | --- |
+| [Web / React](./sdk/web-react.md) | [`@vascular-io/vascular-js`](https://github.com/vascular-io/vascular-js) | Envoy | `8081` |
+| [Flutter](./sdk/flutter.md) | [`vascular_flutter`](https://github.com/vascular-io/vascular-flutter) | Vascular Inbox directly | `3000` |
+| React Native (web) | Same as Web / React | Envoy | `8081` |
+| Android (Java) | [vascular-android](https://github.com/vascular-io/vascular-android) | Vascular Inbox directly | `3000` |
+| iOS (Swift) | [vascular-ios](https://github.com/vascular-io/vascular-ios) | Vascular Inbox directly | `3000` |
 
-### Web (React)
+## Documented SDKs
 
-<https://github.com/vascular-io/vascular-js>
+- [Authentication](./sdk/authentication.md) — API key, app key, and user ID; request headers; platform differences
+- [Web / React](./sdk/web-react.md) — `@vascular-io/vascular-js` installation and API
+- [Flutter](./sdk/flutter.md) — `vascular_flutter` installation and API
 
-### React Native
+## Quick start
 
-<https://github.com/vascular-io/vascular-js>
+1. Deploy [Vascular Inbox](./deploying.md) and obtain your [license](./license.md).
+2. Get an **API key** and **app key** from the [Customer Dashboard](https://dashboard.vascular.io).
+3. Read [Authentication](./sdk/authentication.md) and open the guide for your platform:
+   - Web or React → [Web / React SDK](./sdk/web-react.md) and [Envoy proxy](./envoy-proxy.md)
+   - Flutter → [Flutter SDK](./sdk/flutter.md)
 
-### Flutter
+## Other platforms
 
-<https://github.com/vascular-io/vascular-flutter>
+Documentation for Android and iOS SDKs will be added here. Until then, refer to the repositories:
 
-### Android (Java)
-
-<https://github.com/vascular-io/vascular-android>
-
-### iOS (Swift)
-
-<https://github.com/vascular-io/vascular-ios>
-
-
+- [vascular-android](https://github.com/vascular-io/vascular-android)
+- [vascular-ios](https://github.com/vascular-io/vascular-ios)

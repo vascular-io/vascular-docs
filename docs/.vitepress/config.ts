@@ -30,9 +30,17 @@ export default defineConfig({
         ],
       },
       {
+        text: "Client SDKs",
+        items: [
+          { text: "Overview", link: "/guide/client-integration" },
+          { text: "Authentication", link: "/guide/sdk/authentication" },
+          { text: "Web / React", link: "/guide/sdk/web-react" },
+          { text: "Flutter", link: "/guide/sdk/flutter" },
+        ],
+      },
+      {
         text: "Integration",
         items: [
-          { text: "Client SDKs", link: "/guide/client-integration" },
           { text: "Streaming events to S3", link: "/guide/analytics-s3" },
         ],
       },

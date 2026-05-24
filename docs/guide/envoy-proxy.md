@@ -99,4 +99,6 @@ static_resources:
 
 Point your React or React Native web SDK at the Envoy listener (for example `https://api.your-domain.com` on port `8081`). Do not point the web SDK at port `3000` — that port is for the other SDKs only.
 
+SDK credentials (`api-key` and `app-key`) are sent on every request — see [Client SDK authentication](./sdk/authentication.md).
+
 Full Docker and Kubernetes deployment examples are in the next page: [Deploying Vascular Inbox](./deploying.md).
