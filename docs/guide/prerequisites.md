@@ -4,7 +4,7 @@ Before running Vascular, ensure you meet the following requirements.
 
 Make sure you have:
 
-- An active subscription
+- A Vascular account — free to register, no credit card required
 - Access credentials for our private container registry (Vascular is distributed as a container image)
 - A valid license file (`.license`). Download it from the [Customer Dashboard](https://dashboard.vascular.io) after registration
 - A PostgreSQL database reachable from the container. Set `DATABASE_URL` to a full connection string (see [Environment variables](./environment-variables.md))

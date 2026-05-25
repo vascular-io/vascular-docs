@@ -4,6 +4,10 @@ export default defineConfig({
   title: "Vascular Docs",
   description: "Developer documentation for the Vascular Platform",
   base: "/vascular-docs/",
+  head: [
+    ["link", { rel: "icon", type: "image/png", href: "/vascular-docs/favicon.png" }],
+    ["link", { rel: "apple-touch-icon", href: "/vascular-docs/favicon.png" }],
+  ],
   themeConfig: {
     logo: "/logo.svg",
     nav: [
