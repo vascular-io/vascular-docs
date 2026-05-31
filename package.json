@@ -3,8 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "dev": "npm run copy:envoy && vitepress dev docs",
+    "build": "npm run copy:envoy && vitepress build docs",
+    "copy:envoy": "mkdir -p docs/public/envoy && cp docs/envoy/*.yaml docs/public/envoy/",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {

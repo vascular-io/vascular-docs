@@ -1,0 +1,179 @@
+static_resources:
+  listeners:
+    - name: listener_8081
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 8081
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: ingress_http
+                codec_type: AUTO
+
+                http_filters:
+                  - name: envoy.filters.http.lua
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+                      inline_code: |
+                        function envoy_on_response(response_handle)
+                          local status = response_handle:headers():get(":status")
+                          if status ~= "401" and status ~= "403" then
+                            return
+                          end
+
+                          local grpc_status = "16"
+                          local grpc_message = "Unauthenticated"
+                          if status == "403" then
+                            grpc_status = "7"
+                            grpc_message = "Permission%20denied"
+                          end
+
+                          response_handle:headers():replace(":status", "200")
+                          response_handle:headers():replace("content-type", "application/grpc-web-text+proto")
+                          response_handle:headers():replace("grpc-status", grpc_status)
+                          response_handle:headers():replace("grpc-message", grpc_message)
+                          response_handle:body(true):setBytes("")
+                        end
+
+                  - name: envoy.filters.http.ext_authz
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+                      transport_api_version: V3
+                      http_service:
+                        server_uri:
+                          uri: http://${auth_filter_HOST}:${auth_filter_PORT}
+                          cluster: auth_filter
+                          timeout: 5s
+                        authorization_request:
+                          allowed_headers:
+                            patterns:
+                              - exact: session-token
+                              - exact: app-key
+                              - exact: api-key
+                              - exact: content-type
+                              - exact: x-grpc-web
+                              - exact: grpc-timeout
+                      failure_mode_allow: false
+
+                  - name: envoy.filters.http.grpc_web
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb
+
+                  - name: envoy.filters.http.cors
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors
+
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: backend
+                      domains: ["${ENVOY_API_DOMAIN}"]
+                      cors:
+                        allow_origin_string_match:
+                          - exact: "${CORS_ALLOW_ORIGIN}"
+                        allow_methods: GET, PUT, DELETE, POST, OPTIONS
+                        allow_headers: content-type,authorization,x-requested-with,x-grpc-web,x-user-agent,app-key,api-key,session-token,grpc-timeout
+                        expose_headers: grpc-status,grpc-message,grpc-status-details-bin
+                        max_age: "1728000"
+                      routes:
+                        - match:
+                            prefix: /
+                          route:
+                            cluster: vascular_upstream
+                            timeout: 30s
+
+    - name: listener_8082
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 8082
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: ingress_grpc
+                codec_type: AUTO
+
+                http_filters:
+                  - name: envoy.filters.http.ext_authz
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+                      transport_api_version: V3
+                      http_service:
+                        server_uri:
+                          uri: http://${auth_filter_HOST}:${auth_filter_PORT}
+                          cluster: auth_filter
+                          timeout: 5s
+                        authorization_request:
+                          allowed_headers:
+                            patterns:
+                              - exact: session-token
+                              - exact: app-key
+                              - exact: api-key
+                              - exact: content-type
+                              - exact: grpc-timeout
+                      failure_mode_allow: false
+
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
+                route_config:
+                  name: grpc_route
+                  virtual_hosts:
+                    - name: backend
+                      domains: ["${ENVOY_API_DOMAIN}"]
+                      routes:
+                        - match:
+                            prefix: /
+                          route:
+                            cluster: vascular_upstream
+                            timeout: 30s
+
+  clusters:
+    - name: auth_filter
+      type: STRICT_DNS
+      connect_timeout: 5s
+      lb_policy: ROUND_ROBIN
+      typed_extension_protocol_options:
+        envoy.extensions.upstreams.http.v3.HttpProtocolOptions:
+          "@type": type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions
+          explicit_http_config:
+            http_protocol_options: {}
+      load_assignment:
+        cluster_name: auth_filter
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: ${auth_filter_HOST}
+                      port_value: ${auth_filter_PORT}
+
+    - name: vascular_upstream
+      type: STRICT_DNS
+      dns_lookup_family: V4_ONLY
+      connect_timeout: 5s
+      lb_policy: ROUND_ROBIN
+      typed_extension_protocol_options:
+        envoy.extensions.upstreams.http.v3.HttpProtocolOptions:
+          "@type": type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions
+          explicit_http_config:
+            http2_protocol_options: {}
+      load_assignment:
+        cluster_name: vascular_upstream
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: ${vascular_upstream_HOST}
+                      port_value: ${vascular_upstream_PORT}

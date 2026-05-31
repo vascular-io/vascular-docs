@@ -23,7 +23,7 @@ export default defineConfig({
           { text: "Prerequisites", link: "/guide/prerequisites" },
           { text: "Pull the image", link: "/guide/pull-image" },
           { text: "License activation", link: "/guide/license" },
-          { text: "Envoy proxy (web SDKs)", link: "/guide/envoy-proxy" },
+          { text: "Envoy proxy", link: "/guide/envoy-proxy" },
           { text: "Deploying Vascular Inbox", link: "/guide/deploying" },
         ],
       },

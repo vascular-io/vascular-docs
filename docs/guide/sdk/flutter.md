@@ -1,8 +1,9 @@
 # Flutter SDK
 
-The Vascular Flutter SDK (`vascular_flutter`) is a Dart client for **Flutter** apps on iOS and Android. It connects over TLS to Vascular Inbox directly (default port `3000`), not through Envoy.
+The Vascular Flutter SDK (`vascular_flutter`) is a Dart client for **Flutter** apps on iOS and Android. By default it connects over TLS to Vascular Inbox (port `3000`). If you use a [session token](./authentication.md), point the SDK at [Envoy](../envoy-proxy.md) on port `8082` instead.
 
-**Repository:** [github.com/vascular-io/vascular-flutter](https://github.com/vascular-io/vascular-flutter)
+**Repository:** [github.com/vascular-io/vascular-flutter](https://github.com/vascular-io/vascular-flutter)  
+**pub.dev:** [vascular_flutter](https://pub.dev/packages/vascular_flutter)
 
 ## Prerequisites
 
@@ -15,7 +16,7 @@ Add the package to your app's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  vascular_flutter: ^1.0.0
+  vascular_flutter: ^2.2.0
 ```
 
 ```sh

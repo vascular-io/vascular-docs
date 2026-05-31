@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:17
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: vascular
+      POSTGRES_PASSWORD: vascular
+      POSTGRES_DB: vascular_inbox
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vascular -d vascular_inbox"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  vascular-inbox:
+    image: vascular.registry.com/inbox:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://vascular:vascular@postgres:5432/vascular_inbox
+      TENANT_ID: ${TENANT_ID}
+    volumes:
+      - ./license/.license:/etc/vascular-inbox/.license:ro
+
+  envoy:
+    image: envoyproxy/envoy:v1.31-latest
+    depends_on:
+      - vascular-inbox
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml:ro
+    command: ["-c", "/etc/envoy/envoy.yaml"]
+
+volumes:
+  postgres_data:

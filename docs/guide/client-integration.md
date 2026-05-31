@@ -4,17 +4,17 @@ Integrate Vascular into your applications using our open-source client SDKs. Eac
 
 ## Connection overview
 
-| SDK | Package / repo | Connects to | Port (default) |
+| SDK | Package / repo | Connects to | Port |
 | --- | --- | --- | --- |
-| [Web / React](./sdk/web-react.md) | [`@vascular-io/vascular-js`](https://github.com/vascular-io/vascular-js) | Envoy | `8081` |
-| [Flutter](./sdk/flutter.md) | [`vascular_flutter`](https://github.com/vascular-io/vascular-flutter) | Vascular Inbox directly | `3000` |
-| React Native (web) | Same as Web / React | Envoy | `8081` |
-| Android (Java) | [vascular-android](https://github.com/vascular-io/vascular-android) | Vascular Inbox directly | `3000` |
-| iOS (Swift) | [vascular-ios](https://github.com/vascular-io/vascular-ios) | Vascular Inbox directly | `3000` |
+| [Web / React](./sdk/web-react.md) | [`@vascular-io/vascular-js`](https://github.com/vascular-io/vascular-js) | [Envoy](./envoy-proxy.md) | `8081` |
+| React Native (web) | Same as Web / React | [Envoy](./envoy-proxy.md) | `8081` |
+| [Flutter](./sdk/flutter.md) | [`vascular_flutter`](https://github.com/vascular-io/vascular-flutter) | Vascular Inbox, or [Envoy](./envoy-proxy.md) with session token | `3000` or `8082` |
+| Android (Java) | [vascular-android](https://github.com/vascular-io/vascular-android) | Vascular Inbox, or [Envoy](./envoy-proxy.md) with session token | `3000` or `8082` |
+| iOS (Swift) | [vascular-ios](https://github.com/vascular-io/vascular-ios) | Vascular Inbox, or [Envoy](./envoy-proxy.md) with session token | `3000` or `8082` |
 
 ## Documented SDKs
 
-- [Authentication](./sdk/authentication.md) — API key, app key, and user ID; request headers; platform differences
+- [Authentication](./sdk/authentication.md) — API key, app key, user ID, and optional session token
 - [Web / React](./sdk/web-react.md) — `@vascular-io/vascular-js` installation and API
 - [Flutter](./sdk/flutter.md) — `vascular_flutter` installation and API
 

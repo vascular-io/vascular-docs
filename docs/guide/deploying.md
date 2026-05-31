@@ -1,10 +1,10 @@
 # Deploying Vascular Inbox
 
-The examples below show how to run Vascular Inbox with PostgreSQL, required environment variables, and your license file. Include Envoy when using the React or React Native web SDKs (see [Envoy proxy for web SDKs](./envoy-proxy.md)).
+The examples below show how to run Vascular Inbox with PostgreSQL, required environment variables, and your license file. Include Envoy when using React or React Native web SDKs, or when SDKs authenticate with **your own service** before Vascular Inbox (see [Vascular Inbox with Envoy](./envoy-proxy.md)).
 
 ## Database and required environment variables
 
-Vascular Inbox requires PostgreSQL. Set `DATABASE_URL` to a full connection string and `TENANT_ID` to your Microsoft Entra tenant ID when starting the container (see [Environment variables](./environment-variables.md)).
+Vascular Inbox requires PostgreSQL. Set `DATABASE_URL` when starting the container. Set `TENANT_ID` when using the Vascular backend SDK to authenticate with the Vascular service (see [Environment variables](./environment-variables.md)).
 
 ## Custom license path
 
@@ -15,32 +15,40 @@ By default, mount the license at `/etc/vascular-inbox/.license`. For a custom pa
 --license-file=/custom/path/.license
 ```
 
-## Example: Run with Docker
+## Example: Docker Compose
 
-Create a Docker network, start Vascular Inbox, then start Envoy on the same network when using React or React Native web SDKs. Publish port `3000` for native and other SDKs, and port `8081` for web clients.
+The example below runs PostgreSQL, Vascular Inbox, and Envoy together. Copy the files from the [`examples/`](https://github.com/vascular-io/vascular-docs/tree/main/examples) directory in this repository:
 
 ```bash
-docker network create vascular-net
-
-docker run -d \
-  --name vascular-inbox \
-  --network vascular-net \
-  -p 3000:3000 \
-  -e DATABASE_URL='postgresql://user:password@postgres-host:5432/vascular_inbox' \
-  -e TENANT_ID='your-entra-tenant-id' \
-  -v /path/to/.license:/etc/vascular-inbox/.license:ro \
-  vascular.registry.com/inbox:latest
-
-docker run -d \
-  --name vascular-envoy \
-  --network vascular-net \
-  -p 8081:8081 \
-  -v /path/to/envoy.yaml:/etc/envoy/envoy.yaml:ro \
-  envoyproxy/envoy:v1.31-latest \
-  -c /etc/envoy/envoy.yaml
+cp -r examples/ vascular-stack/
+cd vascular-stack
+cp .env.example .env
+# Edit .env — set TENANT_ID
+# Place your license at license/.license
+docker compose up -d
 ```
 
-In `envoy.yaml`, set the cluster address to `vascular-inbox` (the Docker container name). On Docker Desktop you can use `host.docker.internal` instead if Vascular Inbox runs on the host. Skip the Envoy container if you only use native SDKs.
+| Service | Port | Purpose |
+| --- | --- | --- |
+| `postgres` | `5432` (internal) | PostgreSQL database |
+| `vascular-inbox` | `3000` | Native SDKs and direct API access |
+| `envoy` | `8081` | Web SDKs (`https://localhost:8081` locally) |
+
+Adjust `examples/envoy.yaml` for your frontend origin and API domain before production. See [Vascular Inbox with Envoy](./envoy-proxy.md) for configuration options.
+
+Remove the `envoy` service from `docker-compose.yml` if you only use native SDKs without your own authentication.
+
+### `docker-compose.yml`
+
+<<< ../../examples/docker-compose.yml
+
+### `.env`
+
+```bash
+TENANT_ID=your-entra-tenant-id
+```
+
+Mount your license at `license/.license` before starting the stack.
 
 ## Example: Kubernetes deployment
 
@@ -52,7 +60,7 @@ kubectl create secret generic vascular-inbox-secrets \
   --from-literal=tenant-id='your-entra-tenant-id'
 ```
 
-For web SDKs, add Envoy as a sidecar in the same Pod. Create a ConfigMap from `envoy.yaml` and set the cluster address to `127.0.0.1` so Envoy reaches Vascular Inbox on localhost:
+For web SDKs or your own authentication, add Envoy as a sidecar in the same Pod. Create a ConfigMap from `envoy.yaml` and set the cluster address to `127.0.0.1` so Envoy reaches Vascular Inbox on localhost:
 
 ```bash
 kubectl create configmap vascular-envoy-config --from-file=envoy.yaml=./envoy.yaml
@@ -79,7 +87,6 @@ spec:
           args: ["--license-file=/etc/vascular-inbox/.license"] # optional if using default
           ports:
             - containerPort: 3000
-            - containerPort: 9090
           env:
             - name: DATABASE_URL
               valueFrom:

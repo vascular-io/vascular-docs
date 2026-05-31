@@ -2,7 +2,8 @@
 
 The Vascular JavaScript SDK (`@vascular-io/vascular-js`) is the client for **React** and **React Native** web applications. It must connect through [Envoy](../envoy-proxy.md), not directly to Vascular Inbox port `3000`.
 
-**Repository:** [github.com/vascular-io/vascular-js](https://github.com/vascular-io/vascular-js)
+**Repository:** [github.com/vascular-io/vascular-js](https://github.com/vascular-io/vascular-js)  
+**npm:** [@vascular-io/vascular-js](https://www.npmjs.com/package/@vascular-io/vascular-js)
 
 ## Prerequisites
 
@@ -35,6 +36,8 @@ const vascular = new Vascular({
 ```
 
 If `languages` is not provided, the SDK defaults to `Language.ENUK`.
+
+For optional session-token authentication, see [Authentication](./authentication.md).
 
 ## Usage
 

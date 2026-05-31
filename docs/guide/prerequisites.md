@@ -8,4 +8,4 @@ Make sure you have:
 - Access credentials for our private container registry (Vascular is distributed as a container image)
 - A valid license file (`.license`). Download it from the [Customer Dashboard](https://dashboard.vascular.io) after registration
 - A PostgreSQL database reachable from the container. Set `DATABASE_URL` to a full connection string (see [Environment variables](./environment-variables.md))
-- An Envoy proxy running alongside Vascular Inbox if you use the web client with the **React** or **React Native** SDK (see [Envoy proxy for web SDKs](./envoy-proxy.md))
+- An [Envoy proxy](./envoy-proxy.md) alongside Vascular Inbox for **React** / **React Native** web SDKs, or for any SDK when using custom authentication with a session token
