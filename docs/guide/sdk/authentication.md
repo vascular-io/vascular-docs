@@ -11,7 +11,7 @@ Client SDKs authenticate with Vascular on every API call. You supply credentials
 | **User ID** | Yes | Identifies the end user for inbox and profile operations. |
 | **Session token** | No | Validates the caller against your own authentication system. |
 
-Obtain API and app keys from the [Customer Dashboard](https://dashboard.vascular.io). Store them securely and never commit them to source control.
+See [Obtaining API and app keys](./obtaining-api-and-app-keys.md) for how to generate your API and app keys from the container. See [API key rotation](./api-key-rotation.md) for rotating keys without downtime.
 
 ## Initialize with credentials
 

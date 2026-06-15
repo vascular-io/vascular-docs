@@ -37,7 +37,14 @@ export default defineConfig({
         text: "Client SDKs",
         items: [
           { text: "Overview", link: "/guide/client-integration" },
-          { text: "Authentication", link: "/guide/sdk/authentication" },
+          {
+            text: "Authentication",
+            link: "/guide/sdk/authentication",
+            items: [
+              { text: "Obtaining API and app keys", link: "/guide/sdk/obtaining-api-and-app-keys" },
+              { text: "API key rotation", link: "/guide/sdk/api-key-rotation" },
+            ],
+          },
           { text: "Web / React", link: "/guide/sdk/web-react" },
           { text: "Flutter", link: "/guide/sdk/flutter" },
         ],

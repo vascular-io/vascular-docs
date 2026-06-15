@@ -21,7 +21,7 @@ Integrate Vascular into your applications using our open-source client SDKs. Eac
 ## Quick start
 
 1. Deploy [Vascular Inbox](./deploying.md) and obtain your [license](./license.md).
-2. Get an **API key** and **app key** from the [Customer Dashboard](https://dashboard.vascular.io).
+2. Obtain your **API key** and **app key** by running the container with `show-creds` — see [Obtaining API and app keys](./sdk/obtaining-api-and-app-keys.md).
 3. Read [Authentication](./sdk/authentication.md) and open the guide for your platform:
    - Web or React → [Web / React SDK](./sdk/web-react.md) and [Envoy proxy](./envoy-proxy.md)
    - Flutter → [Flutter SDK](./sdk/flutter.md)
