@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
         - name: vascular-inbox
-          image: vascular.registry.com/inbox:latest
+          image: ghcr.io/vascular-io/inbox:v0.0.14
           args: ["--license-file=/etc/vascular-inbox/.license"] # optional if using default
           ports:
             - containerPort: 3000

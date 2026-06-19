@@ -3,5 +3,5 @@
 Use the following command to pull the latest version of the Vascular container:
 
 ```bash
-docker pull vascular.registry.com/inbox:latest
+docker pull ghcr.io/vascular-io/inbox:v0.0.14
 ```

@@ -40,7 +40,7 @@ Share the new **SecondaryAPIKey** as the next standby for the following rotation
 docker run --rm \
   -e DATABASE_URL='postgres://myuser:mypassword@localhost:5432/mydatabase?sslmode=disable' \
   -e LICENSE_KEY='your-license-key' \
-  vascular.registry.com/inbox:latest \
+  docker pull ghcr.io/vascular-io/inbox:v0.0.14 \
   rotate-primary-key
 ```
 
@@ -48,7 +48,7 @@ docker run --rm \
 docker run --rm \
   -e DATABASE_URL='postgres://myuser:mypassword@localhost:5432/mydatabase?sslmode=disable' \
   -e LICENSE_KEY='your-license-key' \
-  vascular.registry.com/inbox:latest \
+  docker pull ghcr.io/vascular-io/inbox:v0.0.14 \
   rotate-secondary-key
 ```
 
