@@ -9,6 +9,7 @@ Integrate Vascular into your applications using our open-source client SDKs. Eac
 | [Web / React](./sdk/web-react.md) | [`@vascular-io/vascular-js`](https://github.com/vascular-io/vascular-js) | [Envoy](./envoy-proxy.md) | `8081` |
 | React Native (web) | Same as Web / React | [Envoy](./envoy-proxy.md) | `8081` |
 | [Flutter](./sdk/flutter.md) | [`vascular_flutter`](https://github.com/vascular-io/vascular-flutter) | Vascular Inbox, or [Envoy](./envoy-proxy.md) with session token | `3000` or `8082` |
+| [Java (Backend)](./sdk/java.md) | `io.vascular:vascular-java` | Vascular Inbox | `3000` |
 | Android (Java) | [vascular-android](https://github.com/vascular-io/vascular-android) | Vascular Inbox, or [Envoy](./envoy-proxy.md) with session token | `3000` or `8082` |
 | iOS (Swift) | [vascular-ios](https://github.com/vascular-io/vascular-ios) | Vascular Inbox, or [Envoy](./envoy-proxy.md) with session token | `3000` or `8082` |
 
@@ -17,6 +18,7 @@ Integrate Vascular into your applications using our open-source client SDKs. Eac
 - [Authentication](./sdk/authentication.md) — API key, app key, user ID, and optional session token
 - [Web / React](./sdk/web-react.md) — `@vascular-io/vascular-js` installation and API
 - [Flutter](./sdk/flutter.md) — `vascular_flutter` installation and API
+- [Java (Backend)](./sdk/java.md) — `vascular-java` installation and API for server-side publishing
 
 ## Quick start
 
@@ -25,6 +27,7 @@ Integrate Vascular into your applications using our open-source client SDKs. Eac
 3. Read [Authentication](./sdk/authentication.md) and open the guide for your platform:
    - Web or React → [Web / React SDK](./sdk/web-react.md) and [Envoy proxy](./envoy-proxy.md)
    - Flutter → [Flutter SDK](./sdk/flutter.md)
+   - Java backend → [Java Backend SDK](./sdk/java.md)
 
 ## Other platforms
 

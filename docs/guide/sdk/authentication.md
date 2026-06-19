@@ -67,3 +67,16 @@ final vascular = initializeApp(
   },
 );
 ```
+
+## Backend SDK (Java)
+
+The [Java Backend SDK](./java.md) uses a different credential model from client SDKs:
+
+| Credential | Required | Purpose |
+| --- | --- | --- |
+| **API key** | Yes | Identifies your Vascular account. |
+| **App key** | Yes | Identifies your application within your account. |
+| **Access token** | For OAuth methods | Microsoft Entra ID bearer token for publishing messages. |
+| **User ID** | Per request | Passed to each method (for example `createUser("user-123")`), not at client construction. |
+
+Set `TENANT_ID` on Vascular Inbox so it can verify Entra ID tokens. See [Environment variables](../environment-variables.md).

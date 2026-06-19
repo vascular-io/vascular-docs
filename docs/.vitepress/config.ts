@@ -47,6 +47,7 @@ export default defineConfig({
           },
           { text: "Web / React", link: "/guide/sdk/web-react" },
           { text: "Flutter", link: "/guide/sdk/flutter" },
+          { text: "Java (Backend)", link: "/guide/sdk/java" },
         ],
       },
       {
