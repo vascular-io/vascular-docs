@@ -83,7 +83,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: vascular-inbox
-          image: vascular.registry.com/inbox:latest
+          image: docker pull ghcr.io/vascular-io/inbox:v0.0.14
           args: ["rotate-primary-key"]
           env:
             - name: DATABASE_URL
