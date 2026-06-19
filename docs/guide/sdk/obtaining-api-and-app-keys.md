@@ -23,7 +23,7 @@ Store credentials securely and never commit them to source control.
 docker run --rm \
   -e DATABASE_URL='postgres://myuser:mypassword@localhost:5432/mydatabase?sslmode=disable' \
   -e LICENSE_KEY='your-license-key' \
-  docker pull ghcr.io/vascular-io/inbox:v0.0.14 \
+  ghcr.io/vascular-io/inbox:v0.0.14 \
   show-creds
 ```
 
@@ -48,7 +48,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: vascular-inbox
-          image: docker pull ghcr.io/vascular-io/inbox:v0.0.14
+          image: ghcr.io/vascular-io/inbox:v0.0.14
           args: ["show-creds"]
           env:
             - name: DATABASE_URL

@@ -16,7 +16,7 @@ services:
       retries: 5
 
   vascular-inbox:
-    image: docker pull ghcr.io/vascular-io/inbox:v0.0.14
+    image: ghcr.io/vascular-io/inbox:v0.0.14
     depends_on:
       postgres:
         condition: service_healthy
